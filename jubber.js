@@ -302,11 +302,26 @@
         event.stopPropagation();
       } else {
         jubber.style.transition = '';
+        state.suppressClickUntil = performance.now() + 450;
+        const tapDown = new MouseEvent('mousedown', {
+          bubbles: true, cancelable: true, clientX: event.clientX, clientY: event.clientY, button: 0
+        });
+        const tapUp = new MouseEvent('mouseup', {
+          bubbles: true, cancelable: true, clientX: event.clientX, clientY: event.clientY, button: 0
+        });
+        jubber.dispatchEvent(tapDown);
+        window.dispatchEvent(tapUp);
+        state.allowProgrammaticClick = true;
+        jubber.click();
       }
     };
     jubber.addEventListener('pointerup', release, true);
     jubber.addEventListener('pointercancel', release, true);
     jubber.addEventListener('click', (event) => {
+      if (state.allowProgrammaticClick) {
+        state.allowProgrammaticClick = false;
+        return;
+      }
       if (performance.now() < state.suppressClickUntil) {
         event.preventDefault();
         event.stopImmediatePropagation();
@@ -384,7 +399,6 @@
   const opener = document.querySelector('[data-jubber]');
   if (dialog && opener) {
     opener.addEventListener('click', () => {
-      if (opener.__jubberMotion && performance.now() < opener.__jubberMotion.suppressClickUntil) return;
       dialog.showModal?.();
       setTimeout(() => dialog.querySelector('input,textarea')?.focus(), 60);
     });
@@ -410,3 +424,6 @@
 
   setTimeout(paint, 300);
 })();
+
+
+
