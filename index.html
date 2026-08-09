@@ -18,11 +18,32 @@
     <p>Move your pointer toward him, then hover or click. This standalone page contains the same baseline UI used on the live sites.</p>
   </main>
 
-  <button class="jubber-ui" data-jubber type="button" aria-label="Open Jubber assistant">
-    <img class="jubber-ui__visual" src="assets/jubber.webp" alt="" width="160" height="160" draggable="false">
+  <button class="jubber-ui" data-jubber type="button" aria-label="Open Jubber assistant" aria-haspopup="dialog" aria-controls="jubber-chat">
+    <span class="jubber-ui__motion" aria-hidden="true">
+      <span class="jubber-ui__glow"></span>
+      <img class="jubber-ui__visual" src="assets/jubber.webp" alt="" width="160" height="160" draggable="false">
+    </span>
     <span class="jubber-ui__tip">I'm Jubber · Click me</span>
   </button>
 
+
+  <dialog class="jubber-chat" id="jubber-chat" data-jubber-chat aria-labelledby="jubber-chat-title">
+    <div class="jubber-chat__shell">
+      <header class="jubber-chat__head">
+        <div class="jubber-chat__title" id="jubber-chat-title">Jubber</div>
+        <button class="jubber-chat__close" data-jubber-chat-close type="button" aria-label="Close Jubber chat">Close</button>
+      </header>
+      <div class="jubber-chat__log" data-jubber-chat-log aria-live="polite">
+        <div class="jubber-chat__message jubber-chat__message--jubber">Hey, I'm Jubber. Ask me anything—or close this and throw me around.</div>
+      </div>
+      <form class="jubber-chat__composer">
+        <input aria-label="Message Jubber" placeholder="Message Jubber…" autocomplete="off">
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  </dialog>
   <script src="jubber.js"></script>
 </body>
 </html>
+
+
