@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jubber UI</title>
+  <link rel="stylesheet" href="jubber.css">
+  <style>
+    body { min-height: 100vh; margin: 0; color: #f5ffe8; background: radial-gradient(circle at 50% 30%, #283d19, #091009 65%); font-family: system-ui, sans-serif; }
+    main { width: min(760px, calc(100% - 40px)); margin: 0 auto; padding: 12vh 0; }
+    h1 { font-size: clamp(42px, 8vw, 86px); line-height: .9; margin: 0 0 24px; }
+    p { max-width: 56ch; color: #bdd0b2; font-size: 18px; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Meet Jubber.</h1>
+    <p>Move your pointer toward him, then hover or click. This standalone page contains the same baseline UI used on the live sites.</p>
+  </main>
+
+  <button class="jubber-ui" data-jubber type="button" aria-label="Open Jubber assistant">
+    <img class="jubber-ui__visual" src="assets/jubber.webp" alt="" width="160" height="160" draggable="false">
+    <span class="jubber-ui__tip">I'm Jubber · Click me</span>
+  </button>
+
+  <script src="jubber.js"></script>
+</body>
+</html>

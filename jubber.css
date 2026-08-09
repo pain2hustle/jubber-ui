@@ -1,0 +1,92 @@
+@keyframes jubber-excite {
+  0% { transform: translate3d(var(--jub-pull-x, 0), var(--jub-pull-y, 0), 0) scale(1); }
+  18% { transform: translateY(4px) rotate(-5deg) scale(1.13, .82); }
+  42% { transform: translateY(-6px) rotate(4deg) scale(.88, 1.16); }
+  64% { transform: translateY(1px) rotate(-2deg) scale(1.08, .93); }
+  82% { transform: translateY(-2px) rotate(1deg) scale(.96, 1.06); }
+  100% { transform: translate3d(var(--jub-pull-x, 0), var(--jub-pull-y, 0), 0) scale(1.03, .99); }
+}
+
+@keyframes jubber-live {
+  0%, 100% { filter: drop-shadow(0 5px 7px rgba(67, 105, 0, .3)) brightness(1); }
+  50% { filter: drop-shadow(0 8px 12px rgba(126, 205, 0, .48)) brightness(1.07); }
+}
+
+.jubber-ui {
+  --jub-near: 0;
+  --jub-pull-x: 0px;
+  --jub-pull-y: 0px;
+  position: fixed;
+  right: clamp(18px, 3vw, 42px);
+  bottom: clamp(18px, 3vw, 36px);
+  z-index: 1000;
+  width: clamp(112px, 13vw, 154px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  overflow: visible;
+}
+
+.jubber-ui__visual {
+  display: block;
+  width: 145%;
+  height: 145%;
+  max-width: none;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  transform-origin: 50% 72%;
+  transform: translate3d(var(--jub-pull-x), var(--jub-pull-y), 0)
+    rotate(calc((var(--jub-near) - .25) * 2deg))
+    scaleX(calc(1 + var(--jub-near) * .055))
+    scaleY(calc(1 - var(--jub-near) * .025));
+  filter: drop-shadow(0 5px 7px rgba(67, 105, 0, .3))
+    brightness(calc(1 + var(--jub-near) * .08))
+    saturate(calc(1 + var(--jub-near) * .16));
+  transition: transform .16s cubic-bezier(.22, .8, .25, 1), filter .18s ease;
+  will-change: transform, filter;
+  animation: jubber-live 4.6s ease-in-out infinite;
+}
+
+.jubber-ui:hover .jubber-ui__visual,
+.jubber-ui:focus-visible .jubber-ui__visual {
+  animation: jubber-excite .72s cubic-bezier(.22, .86, .25, 1.16) 1,
+    jubber-live 1.55s .72s ease-in-out infinite;
+}
+
+.jubber-ui__tip {
+  position: absolute;
+  right: 70%;
+  bottom: 78%;
+  width: max-content;
+  max-width: min(230px, 72vw);
+  padding: 9px 12px;
+  border: 1px solid rgba(175, 255, 77, .35);
+  border-radius: 999px;
+  color: #f5ffe8;
+  background: rgba(15, 28, 10, .94);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .24);
+  font: 800 12px/1.2 system-ui, sans-serif;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  white-space: normal;
+}
+
+@media (max-width: 560px) {
+  .jubber-ui { right: 18px; bottom: 18px; width: 112px; }
+  .jubber-ui__tip { right: 45%; bottom: 88%; max-width: 190px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jubber-ui__visual,
+  .jubber-ui:hover .jubber-ui__visual,
+  .jubber-ui:focus-visible .jubber-ui__visual {
+    animation: none !important;
+    transition: none !important;
+  }
+}
